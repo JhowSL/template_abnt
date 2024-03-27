@@ -19,6 +19,7 @@ function criarDocumento() {
       left: 1701, // 3 cm
     },
     pageSize: 'A4',
+    language: 'pt-BR',
   })
   // Adicionar páginas ao documento
   adicionarCapa(docx)
@@ -69,7 +70,7 @@ function adicionarCapa(docx) {
   })
   capa.addLineBreak()
   capa.addText('Subtítulo do Trabalho', { font_face: 'Arial', font_size: 12 })
-  for (let i = 0; i < 9; i++) {
+  for (let i = 0; i < 15; i++) {
     capa.addLineBreak() // Espaço de 9(nove) Enter
   }
   capa.addText('Cidade - Estado', {
@@ -78,8 +79,8 @@ function adicionarCapa(docx) {
   })
   capa.addLineBreak()
   capa.addText('Ano', { font_face: 'Arial', font_size: 12 })
-  for (let i = 0; i < 11; i++) {
-    capa.addLineBreak() // Espaço de 7(sete) Enter
+  for (let i = 0; i < 1; i++) {
+    capa.addLineBreak()
   }
 }
 
@@ -144,7 +145,9 @@ function adicionarFolhaDeRostoObjetivo(docx) {
     indentLeft: 4536, // Recuo esquerdo de 8,00cm
   })
 
-  folhaDeRostoObjetivo.addLineBreak() // Adiciona um espaço entre o objetivo do trabalho e a cidade - estado
+  for (let i = 0; i < 11; i++) {
+    folhaDeRostoObjetivo.addLineBreak()
+  }
 }
 
 function adicionarFolhaDeRostoAnoCidade(docx) {
@@ -162,7 +165,7 @@ function adicionarFolhaDeRostoAnoCidade(docx) {
     font_face: 'Arial',
     font_size: 12,
   })
-  for (let i = 0; i < 11; i++) {
+  for (let i = 0; i < 1; i++) {
     folhaDeRostoAnoCidade.addLineBreak() // Espaço de 11(onze) Enter
   }
 }
@@ -174,90 +177,234 @@ function adicionarSumario(docx) {
 
     color: '#000000',
   })
-  for (let i = 0; i < 11; i++) {
-    sumario.addLineBreak() // Espaço de 7(sete) Enter
+  for (let i = 0; i < 33; i++) {
+    sumario.addLineBreak()
   }
 }
 
 function adicionarConteudo(docx) {
-  const conteudo = docx.createP({ align: 'justify', spacing: { line: 360 } }) // Espaçamento de 1,5 linhas
-  conteudo.addText('Titulo do Texto  - Exemplo: Titulo 1', {
+  const titulo = docx.createP({ align: 'justify', spacing: { line: 360 } }) // Espaçamento de 1,5 linhas
+  titulo.addText('Titulo do Texto  - Exemplo: Titulo 1', {
+    font_face: 'Arial',
     font_size: 12,
-
+    bold: true,
     color: '#000000',
+    indentFirstLine: 0,
+    numLevel: 0,
+    align: 'left',
   })
-  conteudo.addLineBreak()
-  conteudo.addText('Conteúdo do Titulo 1', { font_size: 12 })
-  conteudo.addLineBreak()
-  conteudo.addText('Sub-Titulo do Texto - Exemplo: Sub-Titulo 1.1', {
-    font_size: 12,
-    color: '#000000',
-  })
-  conteudo.addLineBreak()
-  conteudo.addText('Conteúdo do Sub-Titulo 1.1', { font_size: 12 })
-  conteudo.addLineBreak()
-  conteudo.addText('Sub-SubTitulo do Texto - Exemplo: Sub-SubTitulo 1.1.1', {
-    font_size: 12,
-    italic: true,
-    color: '#000000',
-  })
-  conteudo.addLineBreak()
-  conteudo.addText('Conteúdo do Sub-SubTitulo 1.1.1', { font_size: 12 })
-  conteudo.addLineBreak()
-}
-
-function adicionarPaginaFinal(docx) {
-  // Criar um parágrafo para a seção da bibliografia
-  const bibliografia = docx.createP({
+  titulo.addLineBreak()
+  // Conteúdo correspondente aos títulos
+  const conteudoTitulo = docx.createP({
     align: 'justify',
     spacing: { line: 360 },
   }) // Espaçamento de 1,5 linhas
+  conteudoTitulo.addText('Conteúdo do Titulo 1', {
+    font_face: 'Arial',
+    font_size: 12,
+  })
+  conteudoTitulo.addText(
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum maximus aliquam tellus, vitae sollicitudin purus. Integer venenatis hendrerit libero id dictum. In eu dictum massa. Morbi maximus tincidunt ante ac rutrum. Integer feugiat eget justo eget pulvinar. Praesent accumsan libero felis. Mauris euismod luctus euismod. Fusce pulvinar, neque in sodales condimentum, ligula elit malesuada mi, et ornare sem libero eget dolor. Maecenas aliquam non urna congue dictum. Fusce ante orci, elementum sed dui at, fermentum mollis odio. Fusce iaculis egestas mi, in auctor sem maximus sagittis. Fusce finibus velit lorem, ut sodales erat lobortis quis.',
+    {
+      font_face: 'Arial',
+      font_size: 12,
+    },
+  )
+  conteudoTitulo.addLineBreak()
 
-  // Adicionar o título "Bibliografia" ao parágrafo
+  const subtitulo = docx.createP({ align: 'justify', spacing: { line: 360 } }) // Espaçamento de 1,5 linhas
+  subtitulo.addText('Sub-Titulo do Texto - Exemplo: Sub-Titulo 1.1', {
+    font_face: 'Arial',
+    font_size: 12,
+    bold: true,
+    color: '#000000',
+    indentFirstLine: 0,
+    numLevel: 1,
+    align: 'left',
+  })
+  subtitulo.addLineBreak()
+  const conteudoSubtitulo = docx.createP({
+    align: 'justify',
+    spacing: { line: 360 },
+  }) // Espaçamento de 1,5 linhas
+  conteudoSubtitulo.addText('Conteúdo do Sub-Titulo 1.1', {
+    font_face: 'Arial',
+    font_size: 12,
+  })
+
+  conteudoSubtitulo.addText(
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum maximus aliquam tellus, vitae sollicitudin purus. Integer venenatis hendrerit libero id dictum. In eu dictum massa. Morbi maximus tincidunt ante ac rutrum. Integer feugiat eget justo eget pulvinar. Praesent accumsan libero felis. Mauris euismod luctus euismod. Fusce pulvinar, neque in sodales condimentum, ligula elit malesuada mi, et ornare sem libero eget dolor. Maecenas aliquam non urna congue dictum. Fusce ante orci, elementum sed dui at, fermentum mollis odio. Fusce iaculis egestas mi, in auctor sem maximus sagittis. Fusce finibus velit lorem, ut sodales erat lobortis quis.',
+    {
+      font_face: 'Arial',
+      font_size: 12,
+    },
+  )
+  conteudoSubtitulo.addLineBreak()
+
+  const subSubtitulo = docx.createP({
+    align: 'justify',
+    spacing: { line: 360 },
+  }) // Espaçamento de 1,5 linhas
+  subSubtitulo.addText(
+    'Sub-SubTitulo do Texto - Exemplo: Sub-SubTitulo 1.1.1',
+    {
+      font_face: 'Arial',
+      font_size: 12,
+      italic: true,
+      color: '#000000',
+      indentFirstLine: 0,
+      numLevel: 2,
+      align: 'left',
+    },
+  )
+  subSubtitulo.addLineBreak()
+
+  const conteudoSubSubtitulo = docx.createP({
+    align: 'justify',
+    spacing: { line: 360 },
+  }) // Espaçamento de 1,5 linhas
+  conteudoSubSubtitulo.addText('Conteúdo do Sub-SubTitulo 1.1.1', {
+    font_face: 'Arial',
+    font_size: 12,
+  })
+
+  conteudoSubSubtitulo.addText(
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum maximus aliquam tellus, vitae sollicitudin purus. Integer venenatis hendrerit libero id dictum. In eu dictum massa. Morbi maximus tincidunt ante ac rutrum. Integer feugiat eget justo eget pulvinar. Praesent accumsan libero felis. Mauris euismod luctus euismod. Fusce pulvinar, neque in sodales condimentum, ligula elit malesuada mi, et ornare sem libero eget dolor. Maecenas aliquam non urna congue dictum. Fusce ante orci, elementum sed dui at, fermentum mollis odio. Fusce iaculis egestas mi, in auctor sem maximus sagittis. Fusce finibus velit lorem, ut sodales erat lobortis quis.',
+    {
+      font_face: 'Arial',
+      font_size: 12,
+    },
+  )
+  conteudoSubSubtitulo.addLineBreak()
+
+  // Adicionar espaçamento adicional
+  for (let i = 0; i < 28; i++) {
+    conteudoSubSubtitulo.addLineBreak()
+  }
+}
+
+function adicionarPaginaFinal(docx) {
+  const bibliografia = docx.createP({
+    align: 'justify',
+    spacing: { line: 360 },
+  })
+
   bibliografia.addText('Bibliografia', {
     font_size: 12,
-
     color: '#000',
   })
   bibliografia.addLineBreak()
 
-  // Definir uma função para adicionar entradas de livro à bibliografia
   const adicionarAutorLivro = (ultimoNome, inicialNome, inicialSobrenome) => {
-    const entradaLivro = `${ultimoNome}, ${inicialNome}. ${inicialSobrenome}. ` // Montar a entrada do livro
-    bibliografia.addText(entradaLivro, { font_size: 12 }) // Adicionar a entrada do livro ao parágrafo
+    const entradaLivro = `${ultimoNome}, ${inicialNome}. ${inicialSobrenome}. `
+    bibliografia.addText(entradaLivro, { font_size: 12, font_face: 'Arial' })
   }
-  // Exemplo de chamada da função para adicionar uma entrada de livro
   adicionarAutorLivro('Sobrenome', 'I', 'N')
 
   const adicionarTituloObra = (tituloObra) => {
     const entrataTituloObra = `${tituloObra}. `
-    bibliografia.addText(entrataTituloObra, { font_size: 12 })
+    bibliografia.addText(entrataTituloObra, {
+      font_size: 12,
+      font_face: 'Arial',
+    })
   }
   adicionarTituloObra('Titulo da Obra')
 
   const adicionarEdicaoDaObra = (edicaoDaObra) => {
     const entrataEdicaoDaObra = `${edicaoDaObra}. `
-    bibliografia.addText(entrataEdicaoDaObra, { font_size: 12 })
+    bibliografia.addText(entrataEdicaoDaObra, {
+      font_size: 12,
+      font_face: 'Arial',
+    })
   }
   adicionarEdicaoDaObra('Edição da Obra')
 
   const adicionarCidade = (cidade) => {
     const entrataCidade = `${cidade}: `
-    bibliografia.addText(entrataCidade, { font_size: 12 })
+    bibliografia.addText(entrataCidade, { font_size: 12, font_face: 'Arial' })
   }
   adicionarCidade('Cidade onde o Livro foi lançado')
 
   const adicionarEditoraDaObra = (editoraDaObra) => {
     const entrataEditoraDaObra = `${editoraDaObra}, `
-    bibliografia.addText(entrataEditoraDaObra, { font_size: 12 })
+    bibliografia.addText(entrataEditoraDaObra, {
+      font_size: 12,
+      font_face: 'Arial',
+    })
   }
   adicionarEditoraDaObra('Editora da Obra')
 
   const adicionarAno = (ano) => {
     const entrataAno = `${ano}. `
-    bibliografia.addText(entrataAno, { font_size: 12 })
+    bibliografia.addText(entrataAno, { font_size: 12, font_face: 'Arial' })
   }
   adicionarAno('Ano de Lançamento da Obra')
+
+  for (let i = 0; i < 5; i++) {
+    bibliografia.addLineBreak()
+  }
+
+  const bibliografiaSite = docx.createP({
+    align: 'justify',
+    spacing: { line: 360 },
+  }) // Espaçamento de 1,5 linhas
+
+  const adicionarAutorSite = (ultimoNome, inicialNome) => {
+    const entradaSite = `${ultimoNome}, ${inicialNome}. `
+    bibliografiaSite.addText(entradaSite, { font_size: 12, font_face: 'Arial' })
+  }
+  adicionarAutorSite('Sobrenome', 'I')
+
+  const adicionarTituloSite = (tituloSite) => {
+    const entrataTituloSite = `${tituloSite}, `
+    bibliografiaSite.addText(entrataTituloSite, {
+      font_size: 12,
+      font_face: 'Arial',
+    })
+  }
+  adicionarTituloSite('Titulo da Site')
+
+  const adicionarTituloTrativaSite = (tituloTrativaSite) => {
+    const entrataTituloTrativaSite = `${tituloTrativaSite}, `
+    bibliografiaSite.addText(entrataTituloTrativaSite, {
+      font_size: 12,
+      font_face: 'Arial',
+    })
+  }
+  adicionarTituloTrativaSite('Titulo do que se trata Site')
+
+  const adicionarDisponibilidade = (disponibilidade) => {
+    const entrataDisponibilidade = `${disponibilidade}: `
+    bibliografiaSite.addText(entrataDisponibilidade, {
+      font_size: 12,
+      font_face: 'Arial',
+    })
+  }
+  adicionarDisponibilidade('Disponibilidade do Site')
+
+  const adicionarURL = (URL) => {
+    const entrataURL = `<${URL}> `
+    bibliografiaSite.addText(entrataURL, { font_size: 12, font_face: 'Arial' })
+  }
+  adicionarURL('URL do Site')
+
+  const adicionarAnoSite = (anoSite) => {
+    const entrataAnoSite = `${anoSite}. `
+    bibliografiaSite.addText(entrataAnoSite, {
+      font_size: 12,
+      font_face: 'Arial',
+    })
+  }
+  adicionarAnoSite('Ano de Lançamento do Site')
+
+  const adicionarAcessoSite = (DD, MM, AAAA) => {
+    const entradaAcessoSite = `Acesso em: ${DD} de ${MM} de ${AAAA} . `
+    bibliografiaSite.addText(entradaAcessoSite, {
+      font_size: 12,
+      font_face: 'Arial',
+    })
+  }
+  adicionarAcessoSite('Dia', 'Mês', 'Ano')
 }
 
 criarDocumento()
