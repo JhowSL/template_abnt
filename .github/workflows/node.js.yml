@@ -1,12 +1,9 @@
-name: Build and Generate Executable
+name: Build and Release Executable
 
 on:
   push:
     branches:
-      - dev
-  pull_request:
-    branches:
-      - dev
+      - main
 
 jobs:
   build:
@@ -24,13 +21,30 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    # Adicione esta etapa para gerar o executável
+    # Etapa para gerar o executável
     - name: Generate Executable
       run: npm run generateExe
 
-    # Upload do executável como um artefato
-    - name: Upload Executable
-      uses: actions/upload-artifact@v2
+    # Etapa para criar um release no GitHub
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        name: my-app-exe
-        path: generate-template-abnt.exe # ajuste o nome do arquivo conforme necessário
+        tag_name: v1.0.0  # Defina a tag do release conforme necessário
+        release_name: Release v1.0.0  # Defina o nome do release conforme necessário
+        draft: false
+        prerelease: false
+
+    # Etapa para fazer upload do executável como um ativo do release
+    - name: Upload Executable as Asset
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: generate-template-abnt.exe  # Defina o caminho do executável gerado conforme necessário
+        asset_name: generate-template-abnt.exe  # Defina o nome do arquivo do executável conforme necessário
+        asset_content_type: application/octet-stream
