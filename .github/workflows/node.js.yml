@@ -30,7 +30,7 @@ jobs:
       id: create_release
       uses: actions/create-release@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
       with:
         tag_name: v1.0.0  # Defina a tag do release conforme necessário
         release_name: Release v1.0.0  # Defina o nome do release conforme necessário
@@ -42,7 +42,7 @@ jobs:
       id: upload-release-asset
       uses: actions/upload-release-asset@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: generate-template-abnt.exe  # Defina o caminho do executável gerado conforme necessário
